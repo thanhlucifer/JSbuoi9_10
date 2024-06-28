@@ -46,7 +46,7 @@ function getValueNhanVien() {
     return nhanVien;
 }
 
-
+let formQLNV = document.getElementById("formQLNV");
 
 document.getElementById('btnThemNV').onclick = function (event) {
     event.preventDefault();
@@ -61,9 +61,9 @@ document.getElementById('btnThemNV').onclick = function (event) {
     saveLocalStorage()
     //hien thi du lieu
     renderarrNhanVien(arrNhanVien);
-    hienthiThongbao('Đã thêm Nhan viên thành công', 2000, 'bg-success')
+    hienthiThongbao('Đã thêm Nhân viên thành công', 2000, 'bg-success')
     //phuong thuc reset
-    formQLSV.reset();
+    formQLNV.reset();
 
 }
 
