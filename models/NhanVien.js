@@ -10,36 +10,29 @@ class NhanVien {
       this.giolam = giolam;
     }
   
-    tinhTongLuong() {
-      let tongLuong = 0;
-  
-      switch (this.chucvu) {
-        case "Giám đốc":
-          tongLuong = this.luongCB * 3;
-          break;
-        case "Trưởng phòng":
-          tongLuong = this.luongCB * 2;
-          break;
-        case "Nhân viên":
-          tongLuong = this.luongCB;
-          break;
-        default:
-          console.error("Chức vụ không hợp lệ!");
+    tinhLuong = function() {
+      if (this.chucvu === "Sếp") {
+        return this.luongCB * 3;
+      } else if (this.chucvu === "Trưởng phòng") {
+        return this.luongCB * 2;
+      } else {
+        return this.luongCB;
       }
-  
-      return tongLuong;
     }
 
-    xepLoai() {
-        if (this.giolam >= 192) {
-          return "Xuất sắc";
-        } else if (this.giolam >= 176) {
-          return "Giỏi";
-        } else if (this.giolam >= 160) {
-          return "Khá";
-        } else {
-          return "Trung bình";
-        }
+    xepLoai = function() {
+      let giolam = parseFloat(this.giolam); // Ép chuỗi kí tự thành số
+  
+      if (giolam >= 192) {
+          return "Xuat sac";
+      } else if (giolam < 192 && giolam >= 176) {
+          return "Gioi";
+      } else if (giolam < 176 && giolam >= 160) {
+          return "Kha";
+      } else {
+          return "Trung binh";
       }
+  }
+  
   }
   

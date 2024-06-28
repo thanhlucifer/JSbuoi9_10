@@ -87,7 +87,7 @@ function renderarrNhanVien(arr = arrNhanVien) {
         let newNhanVien = new NhanVien();
         Object.assign(newNhanVien, nhanVien);
         let { tknv, name, email, datepicker, chucvu } = newNhanVien;
-        let tongLuong = newNhanVien.tinhTongLuong();
+        let tongLuong = newNhanVien.tinhLuong();
         let xepLoai = newNhanVien.xepLoai();
         content += `
             <tr>
