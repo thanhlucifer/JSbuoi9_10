@@ -24,13 +24,13 @@ class NhanVien {
       let giolam = parseFloat(this.giolam); // Ép chuỗi kí tự thành số
   
       if (giolam >= 192) {
-          return "Xuat sac";
+          return "Xuất sắc";
       } else if (giolam < 192 && giolam >= 176) {
-          return "Gioi";
+          return "Giỏi";
       } else if (giolam < 176 && giolam >= 160) {
-          return "Kha";
+          return "Khá";
       } else {
-          return "Trung binh";
+          return "Trung bình";
       }
   }
   

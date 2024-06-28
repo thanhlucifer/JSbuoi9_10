@@ -137,3 +137,17 @@ function deleteNhanVien(tknv) {
         hienthiThongbao('Đã xóa Nhân viên thành công', 2000, 'bg-danger')
     }
 }
+
+document.getElementById('btnTimNV').onclick = function () {
+    let searchType = document.getElementById('searchName').value.trim();
+    let searchTypeNormalized = removeVietnameseTones(searchType).toLowerCase();
+    
+    let filteredNhanVien = arrNhanVien.filter(function (nhanVien) {
+        let newNhanVien = new NhanVien();
+        Object.assign(newNhanVien, nhanVien);
+        let xepLoaiNormalized = removeVietnameseTones(newNhanVien.xepLoai()).toLowerCase();
+        return xepLoaiNormalized === searchTypeNormalized;
+    });
+    
+    renderarrNhanVien(filteredNhanVien);
+}
