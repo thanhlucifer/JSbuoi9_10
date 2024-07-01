@@ -138,6 +138,23 @@ function deleteNhanVien(tknv) {
     }
 }
 
+function getinfoNhanVien(tknv) {
+    let nhanVien = arrNhanVien.find((item, index) => {
+        return item.tknv === tknv;
+    });
+    if (nhanVien) {
+        $(`#myModal`).modal('show');
+        let arrField = document.querySelectorAll('#formQLNV input, #formQLNV select');
+        for (let item of arrField) {
+            let { id } = item;
+            item.value = nhanVien[id];
+        }
+        document.getElementById('tknv').readOnly = true;
+        formQLNV.setAttribute('data-tknv', tknv);
+    }
+
+}
+
 document.getElementById('btnTimNV').onclick = function () {
     let searchType = document.getElementById('searchName').value.trim();
     let searchTypeNormalized = removeVietnameseTones(searchType).toLowerCase();
@@ -148,6 +165,24 @@ document.getElementById('btnTimNV').onclick = function () {
         let xepLoaiNormalized = removeVietnameseTones(newNhanVien.xepLoai()).toLowerCase();
         return xepLoaiNormalized === searchTypeNormalized;
     });
-    
+
     renderarrNhanVien(filteredNhanVien);
 }
+
+document.getElementById('btnCapNhat').onclick = function (event) {
+    event.preventDefault();
+    let nhanVien = getValueNhanVien("formQLNV");
+    if (!nhanVien) {
+        return;
+    }
+    let tknv = formQLNV.getAttribute('data-tknv');
+    let index = arrNhanVien.findIndex(nv => nv.tknv === tknv);
+    if (index !== -1) {
+        arrNhanVien[index] = nhanVien;
+        saveLocalStorage();
+        renderarrNhanVien(arrNhanVien);
+        hienthiThongbao('Đã cập nhật Nhân viên thành công', 2000, 'bg-success');
+    }
+    formQLNV.removeAttribute('data-tknv');
+    formQLNV.reset();
+};
