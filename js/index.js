@@ -1,45 +1,47 @@
 let arrNhanVien = getLocalStorage();
 renderarrNhanVien();
 
+
 function getValueNhanVien() {
-    //su dung querySelectorAll
+    // Sử dụng querySelectorAll
     let arrField = document.querySelectorAll('#formQLNV input, #formQLNV select');
-    //console.log(arrField);
     let nhanVien = new NhanVien();
     let isValid = true;
-    //phep toan nhi phan
-    
+
     for (let field of arrField) {
-        //console.log(field.id);
         let { id, value } = field;
-        //thuc hien lay data actribuite cua input
         let dataValidation = field.getAttribute('data-validation');
-        console.log(dataValidation);
         nhanVien[id] = value;
 
-        //thuc hien validation
-        //thuc hien tu lenh DOM dang co toi cac input va select, se su dung parentElement de DOM toi the cha gan nhat
-        let thecha = field.parentElement;
-        let thespanthongbao = thecha.querySelector('span');
+        let thecha = field.parentElement.parentElement; 
+        let thespanthongbao = thecha.querySelector('span'); 
         let isEmty = checkEmtyValue(value, thespanthongbao);
-        isValid &= isEmty
+
+        isValid &= isEmty;
         if (!isEmty) {
             continue;
         }
-        // if (id === 'txtMaSV') {
-        //     isValid &= checkMinMaxValue(value, thespanthongbao, 0, 10);
-        // }
-        // else if (id ==='txtEmail'){
-        //     isValid &= checkEmail(value, thespanthongbao);
-        // }
-        if (dataValidation == 'doDai') {
-            isValid &= checkMinMaxValue(value, thespanthongbao, 0, 10);
-        }
-        else if (dataValidation == 'email') {
+
+        if (dataValidation === 'doDai') {
+            isValid &= checkAccountFormat(value, thespanthongbao);
+        } else if (dataValidation === 'email') {
             isValid &= checkEmail(value, thespanthongbao);
+        } else if (dataValidation === 'password') {
+            isValid &= checkPassword(value, thespanthongbao);
+        } else if (dataValidation === 'date') {
+            isValid &= checkDate(value, thespanthongbao);
+        } else if (dataValidation === 'rangeLuong') {
+            isValid &= checkRangeValue(value, thespanthongbao, 1000000, 20000000);
+            isValid &= checkNumericInput(value); // Kiểm tra nhập vào phải là số
+        } else if (dataValidation === 'name') {
+            isValid &= checkName(value, thespanthongbao);
+        } else if (dataValidation === 'position') {
+            isValid &= checkPosition(value, thespanthongbao);
+        } else if (dataValidation === 'rangeGioLam') {
+            isValid &= checkRangeValue(value, thespanthongbao, 80, 200);
         }
     }
-    //neu chua nhap du lieu thi khong thuc hien
+
     if (!isValid) {
         return;
     }
@@ -50,19 +52,14 @@ let formQLNV = document.getElementById("formQLNV");
 
 document.getElementById('btnThemNV').onclick = function (event) {
     event.preventDefault();
-    //thuc hien lay thong tin sinh vien
     let nhanVien = getValueNhanVien();
     if (!nhanVien) {
         return;
     }
-    //console.log(sinhVien);
     arrNhanVien.push(nhanVien);
-    //luu tru vao localStorage
     saveLocalStorage()
-    //hien thi du lieu
     renderarrNhanVien(arrNhanVien);
     hienthiThongbao('Đã thêm Nhân viên thành công', 2000, 'bg-success')
-    //phuong thuc reset
     formQLNV.reset();
 
 }
@@ -158,7 +155,7 @@ function getinfoNhanVien(tknv) {
 document.getElementById('btnTimNV').onclick = function () {
     let searchType = document.getElementById('searchName').value.trim();
     let searchTypeNormalized = removeVietnameseTones(searchType).toLowerCase();
-    
+
     let filteredNhanVien = arrNhanVien.filter(function (nhanVien) {
         let newNhanVien = new NhanVien();
         Object.assign(newNhanVien, nhanVien);
@@ -171,18 +168,64 @@ document.getElementById('btnTimNV').onclick = function () {
 
 document.getElementById('btnCapNhat').onclick = function (event) {
     event.preventDefault();
-    let nhanVien = getValueNhanVien("formQLNV");
+    let nhanVien = getValueNhanVien();
     if (!nhanVien) {
         return;
     }
     let tknv = formQLNV.getAttribute('data-tknv');
     let index = arrNhanVien.findIndex(nv => nv.tknv === tknv);
     if (index !== -1) {
+        // Kiểm tra validation cho từng trường
+        let isValid = true;
+        let arrField = document.querySelectorAll('#formQLNV input, #formQLNV select');
+        
+        for (let field of arrField) {
+            let { id, value } = field;
+            let dataValidation = field.getAttribute('data-validation');
+            
+            if (dataValidation === 'email') {
+                let thecha = field.parentElement.parentElement;
+                let thespanthongbao = thecha.querySelector('span');
+                isValid &= checkEmail(value, thespanthongbao);
+            } else if (dataValidation === 'password') {
+                let thecha = field.parentElement.parentElement;
+                let thespanthongbao = thecha.querySelector('span');
+                isValid &= checkPassword(value, thespanthongbao);
+            } else if (dataValidation === 'date') {
+                let thecha = field.parentElement.parentElement;
+                let thespanthongbao = thecha.querySelector('span');
+                isValid &= checkDate(value, thespanthongbao);
+            } else if (dataValidation === 'rangeLuong') {
+                let thecha = field.parentElement.parentElement;
+                let thespanthongbao = thecha.querySelector('span');
+                isValid &= checkRangeValue(value, thespanthongbao, 1000000, 20000000);
+                isValid &= checkNumericInput(value);
+            } else if (dataValidation === 'name') {
+                let thecha = field.parentElement.parentElement;
+                let thespanthongbao = thecha.querySelector('span');
+                isValid &= checkName(value, thespanthongbao);
+            } else if (dataValidation === 'position') {
+                let thecha = field.parentElement.parentElement;
+                let thespanthongbao = thecha.querySelector('span');
+                isValid &= checkPosition(value, thespanthongbao);
+            } else if (dataValidation === 'rangeGioLam') {
+                let thecha = field.parentElement.parentElement;
+                let thespanthongbao = thecha.querySelector('span');
+                isValid &= checkRangeValue(value, thespanthongbao, 80, 200);
+            }
+        }
+        
+        if (!isValid) {
+            return;
+        }
+        
+        // Cập nhật thông tin nhân viên trong mảng
         arrNhanVien[index] = nhanVien;
         saveLocalStorage();
         renderarrNhanVien(arrNhanVien);
-        hienthiThongbao('Đã cập nhật Nhân viên thành công', 2000, 'bg-success');
+        hienthiThongbao('Đã cập nhật Nhân viên thành công', 2000, 'bg-success');
     }
+    
     formQLNV.removeAttribute('data-tknv');
     formQLNV.reset();
 };

@@ -13,7 +13,7 @@ class NhanVien {
     tinhLuong = function() {
       if (this.chucvu === "Sếp") {
         return this.luongCB * 3;
-      } else if (this.chucvu === "Trưởng phòng") {
+      } else if (this.chucvu === "Trưởng Phòng") {
         return this.luongCB * 2;
       } else {
         return this.luongCB;

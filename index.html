@@ -189,8 +189,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-user"></i></span>
 								</div>
-								<input type="text" name="tk" id="tknv" class="form-control input-sm"
-									placeholder="Tài khoản">
+								<input type="text" name="tk" id="tknv" class="form-control input-sm" placeholder="Tài khoản" data-validation="doDai">
 							</div>
 							<span class="sp-thongbao" id="tbTKNV"></span>
 						</div>
@@ -200,8 +199,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-address-book"></i></span>
 								</div>
-								<input type="name" name="name" id="name" class="form-control input-sm"
-									placeholder="Họ và tên">
+								<input type="name" name="name" id="name" class="form-control input-sm" placeholder="Họ và tên" data-validation="name">
 							</div>
 							<span class="sp-thongbao" id="tbTen"></span>
 						</div>
@@ -211,8 +209,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-envelope"></i></span>
 								</div>
-								<input type="email" name="email" id="email" class="form-control input-sm"
-									placeholder="Email">
+								<input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email" data-validation="email">
 							</div>
 
 							<span class="sp-thongbao" id="tbEmail"></span>
@@ -223,8 +220,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-key"></i></span>
 								</div>
-								<input type="password" name="password" id="password" class="form-control input-sm"
-									placeholder="Mật khẩu">
+								<input type="password" name="password" id="password" class="form-control input-sm" placeholder="Mật khẩu" data-validation="password">
 							</div>
 							<span class="sp-thongbao" id="tbMatKhau"></span>
 						</div>
@@ -234,8 +230,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-calendar"></i></span>
 								</div>
-								<input type="text" name="ngaylam" id="datepicker" class="form-control"
-									placeholder="Ngày làm">
+								<input type="text" name="ngaylam" id="datepicker" class="form-control" placeholder="Ngày làm" data-validation="date">
 							</div>
 
 							<span class="sp-thongbao" id="tbNgay"></span>
@@ -246,8 +241,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-money" aria-hidden="true"></i></span>
 								</div>
-								<input type="text" name="luongCB" id="luongCB" class="form-control input-sm"
-									placeholder="Lương cơ bản">
+								<input type="number" name="luongCB" id="luongCB" class="form-control input-sm" placeholder="Lương cơ bản" data-validation="rangeLuong">
 							</div>
 							<span class="sp-thongbao" id="tbLuongCB"></span>
 						</div>
@@ -256,11 +250,11 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-briefcase"></i></span>
 								</div>
-								<select class="form-control" id="chucvu">
+								<select class="form-control" id="chucvu" data-validation="position">
 									<option>Chọn chức vụ</option>
 									<option>Sếp</option>
-									<option>Trưởng phòng</option>
-									<option>Nhân viên</option>
+									<option>Trưởng Phòng</option>
+									<option>Nhân Viên</option>
 								</select>
 							</div>
 
@@ -271,8 +265,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
 								</div>
-								<input type="text" name="gioLam" id="giolam" class="form-control input-sm"
-									placeholder="Giờ làm">
+								<input type="number" name="gioLam" id="giolam" class="form-control input-sm" placeholder="Giờ làm" data-validation="rangeGioLam">
 							</div>
 							<span class="sp-thongbao" id="tbGiolam"></span>
 						</div>
