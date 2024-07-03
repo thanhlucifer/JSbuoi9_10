@@ -225,7 +225,7 @@ document.getElementById('btnCapNhat').onclick = function (event) {
         renderarrNhanVien(arrNhanVien);
         hienthiThongbao('Đã cập nhật Nhân viên thành công', 2000, 'bg-success');
     }
-    
+    document.getElementById('tknv').readOnly = false;
     formQLNV.removeAttribute('data-tknv');
     formQLNV.reset();
 };
